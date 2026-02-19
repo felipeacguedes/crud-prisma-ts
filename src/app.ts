@@ -1,15 +1,12 @@
-import express from 'express';
-import { Request, Response } from 'express';
+import express from "express";
 
 const app = express();
+const PORT = 3000;
 
-app.use(express.json());
-
-app.get('/', (req: Request, res: Response) => {
-    return res.status(200).json("functional GET route")
+app.get("/", (req, res) => {
+  res.send("working");
 });
-const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`)
-})
+  console.log(`Servidor rodando em http://localhost:${PORT}`);
+});

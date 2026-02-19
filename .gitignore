@@ -28,3 +28,4 @@ out/
 *.suo
 *.ntvs*
 *.njsproj
+/src/generated/prisma
