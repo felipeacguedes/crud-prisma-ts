@@ -1,26 +1,17 @@
-import express from "express";
-import { prisma } from "./lib/prisma";
+import 'dotenv/config'
+import express from 'express'
+import userRoutes from './routes/user.routes'
+import { prisma } from './lib/prisma'
 
-const app = express();
-const PORT = 3000;
+prisma.$connect()
+  .then(() => console.log('Conectado ao Mongo com Prisma 5 ✅'))
+  .catch((err) => console.error(err))
+
+const app = express()
 
 app.use(express.json());
+app.use('/users', userRoutes)
 
-app.post("/users", async (request, response) => {
-  const { name, email } = request.body;
-
-  const user = await prisma.user.create({
-    data: { name, email }
-  });
-
-  response.status(201).json(user);
-});
-
-app.get("/users", async (request, response) => {
-  const users = await prisma.user.findMany();
-  response.json(users);
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(3000, () => {
+  console.log('Server is running on port 3000')
 })
